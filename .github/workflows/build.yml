@@ -40,3 +40,4 @@ jobs:
           registry: docker.pkg.github.com
           repository: tehw0lf/kotlett
           tag_with_ref: true
+
