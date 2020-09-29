@@ -28,13 +28,15 @@ jobs:
         run: ./gradlew test
       - name: Build with Gradle
         run: ./gradlew build
-      - name: Build Docker image
+      - name: Assemble files
         run: ./gradlew assemble
+      - name: Build Docker image
+        run: docker build -t kotlett .
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: ghcr.io/tehw0lf/kotlett
+          repository: tehw0lf/kotlett
           tag_with_ref: true
