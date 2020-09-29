@@ -7,7 +7,8 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build_and_push:
+    name: Build and push Docker image to GitHub Packages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,13 +30,6 @@ jobs:
         run: ./gradlew build
       - name: Build Docker image
         run: ./gradlew assemble
-
-  push_to_registry:
-    name: Push Docker image to GitHub Packages
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
