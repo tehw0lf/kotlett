@@ -37,4 +37,4 @@ jobs:
       - name: Tag Docker image
         run: docker tag ghcr.io/tehw0lf/kotlett:$GITHUB_SHA ghcr.io/tehw0lf/kotlett:latest
       - name: Publish Docker image
-        run: docker push ghcr.io/tehw0lf/kotlett:$GITHUB_SHA
+        run: docker push ghcr.io/tehw0lf/kotlett
