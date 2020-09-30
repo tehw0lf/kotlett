@@ -30,14 +30,9 @@ jobs:
         run: ./gradlew build
       - name: Assemble files
         run: ./gradlew assemble
+      - name: Login to GitHub Container Registry
+        run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
       - name: Build Docker image
-        run: docker build -t kotlett .
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: tehw0lf/kotlett
-          tag_with_ref: true
-
+        run: docker build . -t ghcr.io/tehw0lf/kotlett:$GITHUB_SHA --cache-from ghcr.io/tehw0lf/kotlett:latest
+      - name: Publish Docker image
+        run: docker push ghcr.io/tehw0lf/kotlett:$GITHUB_SHA
